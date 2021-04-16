@@ -21,11 +21,12 @@ return rez;
 }
 
 app.get('/',async (req, res) => {
+res.setHeader('Content-Type', 'application/json');
 if(req.query.equ !== undefined){
 const steps = mathsteps.simplifyExpression(req.query.equ);
 
 doMath(steps).then(function(result){
-res.send(JSON.stringify(result));
+res.json(result);
 })
 } else {;
 res.send('{"error":"url incorrect"}')
