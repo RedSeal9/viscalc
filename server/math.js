@@ -5,10 +5,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
-if(req.query.equ !== undefined){
-const steps = mathsteps.simplifyExpression(req.query.equ);
-
+async function doMath(steps){
 var rez = {};
 var num = 0;
 
@@ -20,7 +17,16 @@ rez[num] = {};
 	rez[num]['length'] = step.substeps.length;
 num ++;
 });
-res.send(JSON.stringify(rez));
+return rez;
+}
+
+app.get('/',async (req, res) => {
+if(req.query.equ !== undefined){
+const steps = mathsteps.simplifyExpression(req.query.equ);
+
+doMath(steps).then(function(result){
+res.send(JSON.stringify(result));
+})
 } else {;
 res.send('{"error":"url incorrect"}')
 }
