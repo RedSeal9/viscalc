@@ -24,10 +24,23 @@ function setRes(res){
 res.text().then((value)=>{rst = JSON.parse(value)})
 .then(()=>{
 for (i = 0, len = Object.keys(rst).length; i < len; i++) {
-var node = document.createElement("div");
-node.innerHTML = JSON.stringify(rst[i]);
+rs = rst[i];
+var node = document.createElement("pre");
+node.innerHTML = `
+Old: ${rs.old}
+New: ${rs.new}
+Changes: ${rs.type}
+<br>
+`
 output.appendChild(node)
 }})
+.then(()=>{
+var node = document.createElement('span');
+node.innerHTML = `
+Final Answer: <code>${rst[Object.keys(rst).length-1].new}</code>
+`;
+output.appendChild(node);
+})
 }
 
 window.addEventListener("load", init, false);
