@@ -20,7 +20,7 @@ setRes(result);
 }
 
 function setRes(res){
-//var rst;
+var rst;
 res.text().then((value)=>{rst = JSON.parse(value)})
 .then(()=>{
 for (i = 0, len = Object.keys(rst).length; i < len; i++) {
