@@ -1,9 +1,8 @@
 const mathsteps = require('mathsteps');
-const url = require('url');
-const querystring = require('querystring');
 const express = require('express');
 const app = express();
 const port = 3000;
+
 
 async function doMath(steps){
 var rez = {};
@@ -21,15 +20,16 @@ return rez;
 }
 
 app.get('/',async (req, res) => {
+res.setHeader('Access-Control-Allow-Origin', '*');
 res.setHeader('Content-Type', 'application/json');
-if(req.query.equ !== undefined){
+if(req.query.equ !== undefined && req.query.equ !== ''){
 const steps = mathsteps.simplifyExpression(req.query.equ);
-
+if(steps.length !== 0){
 doMath(steps).then(function(result){
 res.json(result);
 })
-} else {;
-res.send('{"error":"url incorrect"}')
+}else{res.json({"error":"equation could not be simplified","code":"invequ"})}} else {;
+res.send('{"error":"empty equation submitted","code":"emptyequ"}')
 }
 });
 

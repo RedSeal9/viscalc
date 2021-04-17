@@ -20,8 +20,13 @@ setRes(result);
 }
 
 function setRes(res){
+output.innerHTML = '';
 var rst;
 res.text().then((value)=>{rst = JSON.parse(value)})
+.then(()=>{
+if(rst.code == 'invequ'){
+output.innerHTML = '<span style="color:red">'+rst.error+'</span>';
+}})
 .then(()=>{
 for (i = 0, len = Object.keys(rst).length; i < len; i++) {
 rs = rst[i];
