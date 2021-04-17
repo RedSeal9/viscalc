@@ -13,7 +13,8 @@ output = document.getElementById('output');
 go.addEventListener("click",makereq);
 }
 function makereq(){
-fetch('http://localhost:3000?equ='
+//fetch('http://localhost:3000?equ='
+fetch('https://m.max3.app?equ='
 +encodeURIComponent(input.value)).then((result) => {
 setRes(result);
 })
